@@ -108,7 +108,7 @@ NAME = "eventlog"
 DESCRIPTION = "an event logger"
 AUTHOR = "Eldarion"
 AUTHOR_EMAIL = "developers@eldarion.com"
-URL = "http://github.com/eldarion/eventlog"
+URL = "http://github.com/shezi/eventlog"
 VERSION = __import__(PACKAGE).__version__
 
 
@@ -133,7 +133,7 @@ setup(
         "Framework :: Django",
     ],
     setup_requires=[
-        "django-jsonfield==0.8.11"
+        "django-jsonfield>=0.8.11"
     ],
     zip_safe=False
 )
