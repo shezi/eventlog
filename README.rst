@@ -65,6 +65,22 @@ a call to the logger called ``eventlog``, so you can capture your events in the 
   # output:
   INFO EVENTNAME (user user) - {'info': 'an event happened'}
 
+It can be very useful to attach an event log to some Django signals. For example, if you want to track user logins and logouts, you could do it like this::
+
+  import logging
+  from django.dispatch import receiver
+  from django.contrib.auth import signals
+  from eventlog import log_event
+
+  @receiver(signals.user_logged_in)
+  def handle_user_logged_in(sender, **kwargs):
+      log_event("USER_LOGIN", kwargs.get("user"), loglevel=logging.INFO)
+        
+  @receiver(signals.user_logged_out)
+  def handle_user_logged_out(sender, **kwargs):
+      log_event("USER_LOGIN", kwargs.get("user"), extra={'logout': True}, loglevel=logging.INFO)
+
+The reason we use the same event name ``USER_LOGIN`` is so that we can filter more easily in the admin area and see all login and logout events in the same list.
 
 
 ============
