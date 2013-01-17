@@ -103,8 +103,9 @@ Credits
 License
 =======
 
-Copyright 2013, Eldarion
-Copyright 2013, Johannes Spielmann
+Copyright 2011, 2012, 2013, Patrick Altman (https://github.com/paltman)
+
+Copyright 2013, Johannes Spielmann (https://github.com/shezi)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
