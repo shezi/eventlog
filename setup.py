@@ -106,8 +106,8 @@ def find_package_data(
 PACKAGE = "eventlog"
 NAME = "eventlog"
 DESCRIPTION = "an event logger"
-AUTHOR = "Eldarion"
-AUTHOR_EMAIL = "developers@eldarion.com"
+AUTHOR = "Eldarion, shezi"
+AUTHOR_EMAIL = "jps@shezi.de"
 URL = "http://github.com/shezi/eventlog"
 VERSION = __import__(PACKAGE).__version__
 
@@ -127,7 +127,7 @@ setup(
         "Development Status :: 3 - Alpha",
         "Environment :: Web Environment",
         "Intended Audience :: Developers",
-        "License :: OSI Approved :: BSD License",
+        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Framework :: Django",

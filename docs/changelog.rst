@@ -3,6 +3,17 @@
 ChangeLog
 =========
 
+0.6.0
+-----
+
+
+ - forked by Johannes Spielmann at http://github.com/shezi/eventlog)
+ - friendlier import
+ - made parameters optional
+ - removed PUSHER support (see original eventlog for that, http://github.com/eldarion/eventlog)
+ - add logging switch
+ - switched to GPL license
+
 0.5.5
 -----
 
