@@ -10,7 +10,7 @@ import logging
 logger = logging.getLogger('eventlog')
 
 
-class Log(models.Model):
+class Event(models.Model):
     """A simple event logging model."""
     
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
@@ -39,4 +39,4 @@ def log_event(action, user=None, extra=None, loglevel=None):
         else:
             logger.log(loglevel, "%s - %s" % (action, str(extra)))
     
-    return Log.objects.create(user=user, action=action, extra=extra)
+    return Event.objects.create(user=user, action=action, extra=extra)
