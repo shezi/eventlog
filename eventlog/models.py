@@ -35,6 +35,12 @@ def create_event(label, message=None, user=None, extra=None, level=logging.INFO,
     level filles the `level` field in the model and determines the loglevel for the Django logging system if necessary
     django_log determines whether the event should be passed on to the regular Django logging stream
     """
+    if user is not None and type(user) == type(int):
+        # we got a user_id instead of a user
+        try:
+            user = User.objects.get(id=user)
+        except User.DoesNotExist:
+            log_exception("EVENTLOG_COULD_NOT_FIND_USER", message="Could not resolve user_id to actual user", extra={'user_id': user})
     if user is not None and not user.is_authenticated():
         user = None
 
