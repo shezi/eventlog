@@ -115,7 +115,7 @@ def log_fatal(label, message=None, user=None, extra=None, django_log=True):
         ))
         
     return event
-
+log_critical = log_fatal
 
 def log_exception(label, message=None, user=None, extra=None, level=logging.WARNING, django_log=True):
     """Log an exception that occurred in your code.
