@@ -22,6 +22,20 @@ class Event(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     extra = jsonfield.JSONField(null=True)
     
+    def format(self):
+        return "{id:016} {label}{user}{messagespacer}{message}{extraspacer}{extra}".format(
+            label=self.label,
+            user = " (user: {0})".format(self.user.username) if self.user else "",
+            message = self.message or "",
+            extra=self.extra or "",
+            id=self.id,
+            messagespacer = " - " if (self.message or self.extra) else "",
+            extraspacer = " " if (self.extra and self.message) else ""
+        )
+        
+    def __unicode__(self):
+        return "{0} {1}".format(self.timestamp, self.format())
+    
     class Meta:
         ordering = ["-timestamp"]
 
@@ -48,15 +62,7 @@ def create_event(label, message=None, user=None, extra=None, level=logging.INFO,
     event = Event.objects.create(label=label, user=user, message=message, level=level, extra=extra)
     
     if django_log:
-        logger.log(level, "{id:016} {label}{user}{messagespacer}{message}{extraspacer}{extra}".format(
-            label=label,
-            user = " (user: {0})".format(user.username) if user else "",
-            message = message or "",
-            extra=extra or "",
-            id=event.id,
-            messagespacer = " - " if (message or extra) else "",
-            extraspacer = " " if (extra and message) else ""
-        ))
+        logger.log(level, event.format())
         
     return event
 

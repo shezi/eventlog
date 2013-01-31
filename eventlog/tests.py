@@ -84,9 +84,11 @@ class EventLogTesting(TestCase):
             # check to see if an exception was logged (nice: recursive!)
             l.check(
                 ('eventlog', 'WARNING',
-                '0000000000000001 EVENTLOG_COULD_NOT_FIND_USER - Could not resolve user_id to actual user {\'exception\': \'Traceback (most recent call last):\\n  File "/Users/spielmann/prog/bitchest/server/env/lib/python2.7/site-packages/eventlog-0.7.0-py2.7.egg/eventlog/models.py", line 41, in create_event\\n    user = User.objects.get(id=user)\\n  File "/Users/spielmann/prog/bitchest/server/env/lib/python2.7/site-packages/django/db/models/manager.py", line 131, in get\\n    return self.get_query_set().get(*args, **kwargs)\\n  File "/Users/spielmann/prog/bitchest/server/env/lib/python2.7/site-packages/django/db/models/query.py", line 366, in get\\n    % self.model._meta.object_name)\\nDoesNotExist: User matching query does not exist.\\n\', \'user_id\': 999}'             # yes, I copied this from the output!
+                '0000000000000001 EVENTLOG_COULD_NOT_FIND_USER - Could not resolve user_id to actual user {\'exception\': \'Traceback (most recent call last):\\n  File "/Users/spielmann/prog/bitchest/server/env/lib/python2.7/site-packages/eventlog-0.7.0-py2.7.egg/eventlog/models.py", line 55, in create_event\\n    user = User.objects.get(id=user)\\n  File "/Users/spielmann/prog/bitchest/server/env/lib/python2.7/site-packages/django/db/models/manager.py", line 131, in get\\n    return self.get_query_set().get(*args, **kwargs)\\n  File "/Users/spielmann/prog/bitchest/server/env/lib/python2.7/site-packages/django/db/models/query.py", line 366, in get\\n    % self.model._meta.object_name)\\nDoesNotExist: User matching query does not exist.\\n\', \'user_id\': 999}'
                 ), 
                 )
+            # yes, I copied that from the output
+            # and yes, it is quite brittle
 
 
     def test_convenience_log_debug(self):
