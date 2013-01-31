@@ -106,7 +106,7 @@ def find_package_data(
 PACKAGE = "eventlog"
 NAME = "eventlog"
 DESCRIPTION = "an event logger"
-AUTHOR = "Eldarion, shezi"
+AUTHOR = "Eldarion Inc., shezi"
 AUTHOR_EMAIL = "jps@shezi.de"
 URL = "http://github.com/shezi/eventlog"
 VERSION = __import__(PACKAGE).__version__

@@ -103,9 +103,9 @@ Credits
 License
 =======
 
-Copyright 2011, 2012, 2013, Patrick Altman (https://github.com/paltman)
+Copyright 2011, 2012, 2013, Eldarion, Inc. (https://github.com/eldarion/eventlog)
 
-Copyright 2013, Johannes Spielmann (https://github.com/shezi)
+Copyright 2013, Johannes Spielmann (https://github.com/shezi/eventlog)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
