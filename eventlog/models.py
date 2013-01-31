@@ -35,24 +35,27 @@ def create_event(label, message=None, user=None, extra=None, level=logging.INFO,
     level filles the `level` field in the model and determines the loglevel for the Django logging system if necessary
     django_log determines whether the event should be passed on to the regular Django logging stream
     """
-    if user is not None and type(user) == type(int):
+    if user is not None and (type(user) == type(0) or type(user) == type(0L)):
         # we got a user_id instead of a user
         try:
             user = User.objects.get(id=user)
         except User.DoesNotExist:
             log_exception("EVENTLOG_COULD_NOT_FIND_USER", message="Could not resolve user_id to actual user", extra={'user_id': user})
+            user = None
     if user is not None and not user.is_authenticated():
         user = None
 
     event = Event.objects.create(label=label, user=user, message=message, level=level, extra=extra)
     
     if django_log:
-        logger.log(level, "{id:016} {label} {user}- {message}{extra}".format(
+        logger.log(level, "{id:016} {label}{user}{messagespacer}{message}{extraspacer}{extra}".format(
             label=label,
-            user = "(user: {0}) ".format(user.username) if user else "",
-            message = message + " " if message else "",
+            user = " (user: {0})".format(user.username) if user else "",
+            message = message or "",
             extra=extra or "",
-            id=event.id
+            id=event.id,
+            messagespacer = " - " if (message or extra) else "",
+            extraspacer = " " if (extra and message) else ""
         ))
         
     return event
@@ -88,16 +91,21 @@ def log_fatal(label, message=None, user=None, extra=None, django_log=True):
     Note that, since we're trying to access the database, the event log might not make it through.
     """
     try:
-        event = create_event(label, message, user, extra, logging.ERROR, django_log=false)
+        event = create_event(label, message, user, extra, logging.CRITICAL, django_log=False)
     except:
+        # note that, if you try to cover-test this, you'll likely have problems reaching this line.
+        # however, in the case of a FATAL message, we cannot assume that the database is still reachable, so in that case
+        # this branch WILL be taken. To test this, you'd have to disconnect the database. Do that if you want!
         event = None
         
     if django_log:
-        logger.fatal("{label} {user}- {message}{extra}".format(
+        logger.fatal("{label}{user}{messagespacer}{message}{extraspacer}{extra}".format(
             label=label,
-            user = "(user: {0}) ".format(user.username) if user else "",
-            message = message + " " if message else "",
+            user = " (user: {0})".format(user.username) if user else "",
+            message = message or "",
             extra=extra or "",
+            messagespacer = " - " if (message or extra) else "",
+            extraspacer = " " if (extra and message) else ""
         ))
         
     return event
