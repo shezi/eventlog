@@ -117,7 +117,7 @@ def log_fatal(label, message=None, user=None, extra=None, django_log=True):
     return event
 log_critical = log_fatal
 
-def log_exception(label, message=None, user=None, extra=None, level=logging.WARNING, django_log=True):
+def log_exception(label, message=None, user=None, extra=None, exception=None, level=logging.WARNING, django_log=True):
     """Log an exception that occurred in your code.
     
     Call this only during a catch block! Because we have to retrieve the exception info from sys, it might be cleared
@@ -127,6 +127,8 @@ def log_exception(label, message=None, user=None, extra=None, level=logging.WARN
     """
     if extra is None:
         extra = {}
+    if message is None and exception:
+        message = exception.message
     
     # funny how this is _so_ not functional, isn't it?
     exception = traceback.format_exc()
